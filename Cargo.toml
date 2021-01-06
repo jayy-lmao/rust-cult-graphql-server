@@ -1,0 +1,22 @@
+[package]
+name = "cultist-gql-server"
+version = "0.1.0"
+authors = ["James Holman <jameswarringtonholman@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+async-graphql = "2.1.8"
+async-graphql-actix-web = "2.1.8"
+actix-web = "3"
+async-std = "1.5.0"
+chrono = "0.4"
+dataloader = "0.12.0"
+sqlx = { version = "0.3.5", features = ["mysql", "chrono"] }
+async-trait = "0.1.30"
+dotenv = "0.15.0"
+jwks-client = { git = "https://github.com/lyuzashi/jwks-client" }
+futures = "0.3.8"
+env_logger = "0.8.2"
+log = "0.4.11"
