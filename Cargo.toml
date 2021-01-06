@@ -16,7 +16,6 @@ dataloader = "0.12.0"
 sqlx = { version = "0.3.5", features = ["mysql", "chrono"] }
 async-trait = "0.1.30"
 dotenv = "0.15.0"
-jwks-client = { git = "https://github.com/lyuzashi/jwks-client" }
 futures = "0.3.8"
 env_logger = "0.8.2"
 log = "0.4.11"
