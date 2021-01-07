@@ -1,6 +1,6 @@
 use async_trait::async_trait;
 use dataloader::BatchFn;
-use sqlx::postgres::{PgPool,PgQueryAs};
+use sqlx::postgres::{PgPool, PgQueryAs};
 use std::{collections::HashMap, result};
 
 use super::ritual_model::DBRitual;

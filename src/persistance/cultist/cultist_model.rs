@@ -8,5 +8,4 @@ pub struct DBCultist {
     pub date_created: chrono::DateTime<chrono::Utc>,
     pub email: Option<String>,
     pub mobile_phone: Option<String>,
-
 }
