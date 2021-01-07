@@ -20,15 +20,14 @@ impl BatchFn<i32, RitualBatcherLoadHashMapValue> for RitualBatcher {
         dbg!(format!("load cultist by batch {:?}", keys));
 
         let stmt = format!(
-            r#"SELECT Id,
-                CultType 
-                FROM Rituals WHERE Id in ({})"#,
+            r#"SELECT id,
+                ritualType 
+                FROM rituals WHERE id in ({})"#,
             keys.iter()
                 .map(|i| format!("{}", i))
                 .collect::<Vec<String>>()
                 .join(",")
         );
-        dbg!(format!("tried: {}", stmt.clone()));
 
         let rituals: result::Result<Vec<DBRitual>, sqlx::Error> = keys
             .iter()

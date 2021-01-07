@@ -20,29 +20,16 @@ impl BatchFn<i32, CultBatcherLoadHashMapValue> for CultBatcher {
         dbg!(format!("load cult by batch {:?}", keys));
 
         let stmt = format!(
-            r#"SELECT Id,
-                Address,
-                CultBanner,
-                CultDescription,
-                CultHero,
-                CultVideoUrl,
-                CultWebsite,
-                BrandColour,
-                Email,
-                Facebook,
-                Instagram,
-                LinkedIn,
-                LogoUrl,
-                Mobile,
-                Name,
-                PostCode,
-                ProfileUrl,
-                State,
-                Suburb,
-                Telephone,
-                Twitter,
-                YoutubeChannel
-                FROM Cult WHERE Id in ({})"#,
+            r#"SELECT id,
+                address,
+                cultDescription,
+                cultWebsite,
+                brandColour,
+                email,
+                name,
+                postCode,
+                state,
+                FROM Cults WHERE id in ({})"#,
             keys.iter()
                 .map(|i| format!("{}", i))
                 .collect::<Vec<String>>()

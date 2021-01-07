@@ -21,15 +21,15 @@ impl BatchFn<i32, CultistByIdBatcherLoadHashMapValue> for CultistByIdBatcher {
         dbg!(format!("load cultist by batch {:?}", keys));
 
         let stmt = format!(
-            r#"SELECT Id,
-                DateCreated,
-                DateDeleted,
-                DateUpdated,
-                Email,
-                FirstName, 
-                LastName,
-                MobilePhone 
-                FROM Cultist WHERE Id in ({})"#,
+            r#"SELECT id,
+                dateCreated,
+                dateDeleted,
+                dateUpdated,
+                email,
+                firstName, 
+                lastName,
+                mobilePhone 
+                FROM cultists WHERE id in ({})"#,
             keys.iter()
                 .map(|i| format!("{}", i))
                 .collect::<Vec<String>>()

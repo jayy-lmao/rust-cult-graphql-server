@@ -6,7 +6,6 @@ pub use cult::Cult;
 pub use cult::CultAddress;
 pub use cult::CultContactDetails;
 pub use cult::Profile;
-pub use cult::SocialMedia;
 
 mod contact_information;
 pub use contact_information::ContactInformation;

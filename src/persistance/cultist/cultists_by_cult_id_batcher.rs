@@ -24,20 +24,20 @@ impl BatchFn<i32, CultistsVecByCultIdBatcherLoadHashMapValue> for CultistsByCult
         // Because a cultist can be a member of multiple cults
         let stmt = format!(
             r#"SELECT 
-                FirstName,
-                LastName,
-                DateCreated,
-                DateUpdated,
-                DateDeleted,
-                Email,
-                MobilePhone,
-                CultistId as Id,
-                CultId,
-                Role
-              FROM Cultist 
-              INNER JOIN CultistCult 
-              ON CultistCult.CultistId = Cultist.Id 
-              WHERE CultistCult.CultId in ({})"#,
+                firstName,
+                lastName,
+                dateCreated,
+                dateUpdated,
+                dateDeleted,
+                email,
+                mobilePhone,
+                cultistId as Id,
+                cultId,
+                role
+              FROM cultists
+              INNER JOIN cultistCults
+              ON cultistCult.cultistId = cultist.Id 
+              WHERE cultistCult.cultId in ({})"#,
             keys.iter()
                 .map(|i| format!("{}", i))
                 .collect::<Vec<String>>()
