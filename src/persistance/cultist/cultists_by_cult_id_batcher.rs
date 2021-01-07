@@ -1,16 +1,16 @@
 use async_trait::async_trait;
 use dataloader::BatchFn;
-use sqlx::mysql::{MySqlPool, MySqlQueryAs};
+use sqlx::postgres::{PgPool, PgQueryAs};
 use std::{collections::HashMap, result};
 
 use super::cultist_model::DBCultist;
 use crate::persistance::shared::BatchFnLoadError;
 
-pub struct CultistsByCultIdBatcher(MySqlPool);
+pub struct CultistsByCultIdBatcher(PgPool);
 
 impl CultistsByCultIdBatcher {
-    pub fn new(mysql_pool: MySqlPool) -> Self {
-        Self(mysql_pool)
+    pub fn new(postgres_pool: PgPool) -> Self {
+        Self(postgres_pool)
     }
 }
 pub type CultistsVecByCultIdBatcherLoadHashMapValue =
@@ -24,20 +24,19 @@ impl BatchFn<i32, CultistsVecByCultIdBatcherLoadHashMapValue> for CultistsByCult
         // Because a cultist can be a member of multiple cults
         let stmt = format!(
             r#"SELECT 
-                firstName,
-                lastName,
-                dateCreated,
-                dateUpdated,
-                dateDeleted,
+                first_name,
+                last_name,
+                date_created,
+                date_updated,
+                date_deleted,
                 email,
-                mobilePhone,
-                cultistId as Id,
-                cultId,
-                role
+                mobile_phone,
+                cultist_id as id,
+                cult_id
               FROM cultists
-              INNER JOIN cultistCults
-              ON cultistCult.cultistId = cultist.Id 
-              WHERE cultistCult.cultId in ({})"#,
+              INNER JOIN cultist_cults
+              ON cultist_cults.cultist_id = cultists.id 
+              WHERE cultist_cults.cult_id in ({})"#,
             keys.iter()
                 .map(|i| format!("{}", i))
                 .collect::<Vec<String>>()

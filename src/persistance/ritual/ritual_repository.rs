@@ -4,7 +4,7 @@ use crate::domain::Ritual;
 use async_graphql::Result;
 use async_trait::async_trait;
 use dataloader::cached::Loader;
-use sqlx::mysql::MySqlPool;
+use sqlx::postgres::PgPool;
 
 use super::ritual_mapper::map_db_ritual_to_ritual;
 use crate::persistance::shared::BatchFnLoadError;
@@ -13,9 +13,9 @@ pub struct RitualRepository {
     ritual_loader: Loader<i32, RitualBatcherLoadHashMapValue, RitualBatcher>,
 }
 impl RitualRepository {
-    pub fn new(mysql_pool: MySqlPool) -> Self {
+    pub fn new(postgres_pool: PgPool) -> Self {
         Self {
-            ritual_loader: Loader::new(RitualBatcher::new(mysql_pool)),
+            ritual_loader: Loader::new(RitualBatcher::new(postgres_pool)),
         }
     }
 }

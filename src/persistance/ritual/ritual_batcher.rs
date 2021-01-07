@@ -1,16 +1,16 @@
 use async_trait::async_trait;
 use dataloader::BatchFn;
-use sqlx::mysql::{MySqlPool,MySqlQueryAs};
+use sqlx::postgres::{PgPool,PgQueryAs};
 use std::{collections::HashMap, result};
 
 use super::ritual_model::DBRitual;
 use crate::persistance::shared::BatchFnLoadError;
 
-pub struct RitualBatcher(MySqlPool);
+pub struct RitualBatcher(PgPool);
 
 impl RitualBatcher {
-    pub fn new(mysql_pool: MySqlPool) -> Self {
-        Self(mysql_pool)
+    pub fn new(postgres_pool: PgPool) -> Self {
+        Self(postgres_pool)
     }
 }
 pub type RitualBatcherLoadHashMapValue = result::Result<DBRitual, BatchFnLoadError>;
@@ -21,7 +21,7 @@ impl BatchFn<i32, RitualBatcherLoadHashMapValue> for RitualBatcher {
 
         let stmt = format!(
             r#"SELECT id,
-                ritualType 
+                ritual_type 
                 FROM rituals WHERE id in ({})"#,
             keys.iter()
                 .map(|i| format!("{}", i))

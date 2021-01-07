@@ -7,7 +7,7 @@ pub fn map_db_cultist_to_cult(db_cult: DBCult) -> Cult {
         name: db_cult.name,
         cult_address: CultAddress {
             address: db_cult.address,
-            postcode: db_cult.post_code,
+            postcode: db_cult.postcode,
             state: db_cult.state,
         },
         profile: Profile {

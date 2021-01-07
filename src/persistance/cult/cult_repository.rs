@@ -1,7 +1,7 @@
 use async_graphql::Result;
 use async_trait::async_trait;
 use dataloader::cached::Loader;
-use sqlx::mysql::MySqlPool;
+use sqlx::postgres::PgPool;
 
 use super::{
     cult_batcher::{CultBatcher, CultBatcherLoadHashMapValue},
@@ -16,9 +16,9 @@ pub struct CultRepository {
     cult_loader: Loader<i32, CultBatcherLoadHashMapValue, CultBatcher>,
 }
 impl CultRepository {
-    pub fn new(mysql_pool: MySqlPool) -> Self {
+    pub fn new(postgres_pool: PgPool) -> Self {
         Self {
-            cult_loader: Loader::new(CultBatcher::new(mysql_pool)),
+            cult_loader: Loader::new(CultBatcher::new(postgres_pool)),
         }
     }
 }

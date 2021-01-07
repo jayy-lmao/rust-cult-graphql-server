@@ -1,7 +1,7 @@
 use async_graphql::Result;
 use async_trait::async_trait;
 use dataloader::cached::Loader;
-use sqlx::mysql::MySqlPool;
+use sqlx::postgres::PgPool;
 
 use crate::{
     application::ports::outgoing::LoadCultistsPort, domain::Cultist,
@@ -22,10 +22,10 @@ pub struct CultistRepository {
         Loader<i32, CultistsVecByCultIdBatcherLoadHashMapValue, CultistsByCultIdBatcher>,
 }
 impl CultistRepository {
-    pub fn new(mysql_pool: MySqlPool) -> Self {
+    pub fn new(postgres_pool: PgPool) -> Self {
         Self {
-            cultist_by_id_loader: Loader::new(CultistByIdBatcher::new(mysql_pool.clone())),
-            cultists_by_cult_id_loader: Loader::new(CultistsByCultIdBatcher::new(mysql_pool)),
+            cultist_by_id_loader: Loader::new(CultistByIdBatcher::new(postgres_pool.clone())),
+            cultists_by_cult_id_loader: Loader::new(CultistsByCultIdBatcher::new(postgres_pool)),
         }
     }
 }

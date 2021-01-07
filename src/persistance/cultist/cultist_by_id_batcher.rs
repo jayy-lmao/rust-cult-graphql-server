@@ -1,15 +1,15 @@
 use async_trait::async_trait;
 use dataloader::BatchFn;
-use sqlx::mysql::{MySqlPool, MySqlQueryAs};
+use sqlx::postgres::{PgPool, PgQueryAs};
 use std::{collections::HashMap, result};
 
 use super::cultist_model::DBCultist;
 use crate::persistance::shared::BatchFnLoadError;
 
-pub struct CultistByIdBatcher(MySqlPool);
+pub struct CultistByIdBatcher(PgPool);
 impl CultistByIdBatcher {
-    pub fn new(mysql_pool: MySqlPool) -> Self {
-        Self(mysql_pool)
+    pub fn new(postgres_pool: PgPool) -> Self {
+        Self(postgres_pool)
     }
 }
 
@@ -22,13 +22,13 @@ impl BatchFn<i32, CultistByIdBatcherLoadHashMapValue> for CultistByIdBatcher {
 
         let stmt = format!(
             r#"SELECT id,
-                dateCreated,
-                dateDeleted,
-                dateUpdated,
+                date_created,
+                date_deleted,
+                date_updated,
                 email,
-                firstName, 
-                lastName,
-                mobilePhone 
+                first_name, 
+                last_name,
+                mobile_phone 
                 FROM cultists WHERE id in ({})"#,
             keys.iter()
                 .map(|i| format!("{}", i))

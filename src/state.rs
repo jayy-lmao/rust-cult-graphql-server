@@ -1,4 +1,4 @@
-use sqlx::mysql::MySqlPool;
+use sqlx::postgres::PgPool;
 use std::sync::Arc;
 
 use crate::application::services::{CultServices, CultistServices, RitualServices};
@@ -12,10 +12,10 @@ pub struct State {
 }
 
 impl State {
-    pub fn new(mysql_pool: MySqlPool) -> Self {
-        let cultist_repository = Arc::new(CultistRepository::new(mysql_pool.clone()));
-        let cult_repository = Arc::new(CultRepository::new(mysql_pool.clone()));
-        let ritual_repository = Arc::new(RitualRepository::new(mysql_pool));
+    pub fn new(postgres_pool: PgPool) -> Self {
+        let cultist_repository = Arc::new(CultistRepository::new(postgres_pool.clone()));
+        let cult_repository = Arc::new(CultRepository::new(postgres_pool.clone()));
+        let ritual_repository = Arc::new(RitualRepository::new(postgres_pool));
 
         let cultist_services = CultistServices {
             load_cultists_port: cultist_repository,

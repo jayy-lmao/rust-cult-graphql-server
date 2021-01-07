@@ -13,9 +13,9 @@ impl QueryRoot {
     async fn cultist(
         &self,
         ctx: &Context<'_>,
-        #[graphql(desc = "Cultist Id (e.g. A123456)")] cultist_id: String,
+        #[graphql(desc = "Cultist Id (e.g. C123456)")] cultist_id: String,
     ) -> async_graphql::Result<Option<Cultist>> {
-        let cultist_id = cultist_id.replace("A", "").parse::<i32>()?;
+        let cultist_id = cultist_id.replace("C", "").parse::<i32>()?;
         ctx.data_unchecked::<State>()
             .cultist_services
             .get_cultist_by_id(cultist_id)

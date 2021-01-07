@@ -1,48 +1,47 @@
 CREATE TABLE IF NOT EXISTS cults (
     id serial PRIMARY KEY,
     address varchar(100),
-    cultDescription text,
-    cultWebsite varchar(100),
-    brandColour varchar(100),
+    cult_description text,
+    cult_website varchar(100),
+    brand_colour varchar(100),
     email varchar(100),
-    logoUrl varchar(500),
+    logo_url varchar(500),
     name varchar(100),
-    postCode varchar(5),
+    postcode varchar(5),
     state varchar(100)
 );
 
 CREATE TABLE IF NOT EXISTS cultists (
+    id serial PRIMARY KEY,
     email varchar(100),
-    firstName varchar(100),
-    lastName varchar(100),
-    mobilePhone varchar(100),
-    dateCreated timestamp DEFAULT now(),
-    dateDeleted timestamp,
-    dateUpdated timestamp
+    first_name varchar(100),
+    last_name varchar(100),
+    mobile_phone varchar(100),
+    date_created TIMESTAMPTZ DEFAULT now()
 );
 
-CREATE TABLE IF NOT EXISTS cultistCults (
-    cultistId INTEGER,
-    cultId INTEGER,
-    pRIMARY KEY (cultistId, cultId)
+CREATE TABLE IF NOT EXISTS cultist_cults (
+    cultist_id INTEGER,
+    cult_id INTEGER,
+    PRIMARY KEY (cultist_id, cult_id)
 );
 
 CREATE TABLE IF NOT EXISTS rituals (
     Id SERIAL PRIMARY KEY,
-    ritualType varchar(100)
+    ritual_type varchar(100)
 );
 
 -- Sample Data --
 INSERT INTO
     cults(
         address,
-        cultDescription,
-        cultWebsite,
-        brandColour,
+        cult_description,
+        cult_website,
+        brand_colour,
         email,
-        logoUrl,
+        logo_url,
         name,
-        postCode,
+        postcode,
         state
     )
 VALUES
@@ -60,10 +59,10 @@ VALUES
 
 INSERT INTO
     cultists(
-        firstName,
-        lastName,
+        first_name,
+        last_name,
         email,
-        mobilePhone
+        mobile_phone
     )
 VALUES
     (
@@ -98,14 +97,14 @@ VALUES
     );
 
 INSERT INTO
-    cultistCults(cultistId, cultId)
+    cultist_cults(cultist_id, cult_id)
 VALUES
-    (0, 0),
-    (1, 0),
-    (2, 0),
-    (3, 0);
+    (1, 1),
+    (2, 1),
+    (3, 1),
+    (4, 1);
 
 INSERT INTO
-    rituals(ritualType)
+    rituals(ritual_type)
 VALUES
     ('TarotReading');

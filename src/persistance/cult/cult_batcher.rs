@@ -1,15 +1,15 @@
 use async_trait::async_trait;
 use dataloader::BatchFn;
-use sqlx::mysql::{MySqlPool, MySqlQueryAs};
+use sqlx::postgres::{PgPool, PgQueryAs};
 use std::{collections::HashMap, result};
 
 use super::cult_model::DBCult;
 use crate::persistance::shared::BatchFnLoadError;
 
-pub struct CultBatcher(MySqlPool);
+pub struct CultBatcher(PgPool);
 impl CultBatcher {
-    pub fn new(mysql_pool: MySqlPool) -> Self {
-        Self(mysql_pool)
+    pub fn new(postgres_pool: PgPool) -> Self {
+        Self(postgres_pool)
     }
 }
 pub type CultBatcherLoadHashMapValue = result::Result<DBCult, BatchFnLoadError>;
@@ -22,14 +22,15 @@ impl BatchFn<i32, CultBatcherLoadHashMapValue> for CultBatcher {
         let stmt = format!(
             r#"SELECT id,
                 address,
-                cultDescription,
-                cultWebsite,
-                brandColour,
+                cult_description,
+                cult_website,
+                brand_colour,
+                logo_url,
                 email,
                 name,
-                postCode,
-                state,
-                FROM Cults WHERE id in ({})"#,
+                postcode,
+                state
+                FROM cults WHERE id in ({})"#,
             keys.iter()
                 .map(|i| format!("{}", i))
                 .collect::<Vec<String>>()

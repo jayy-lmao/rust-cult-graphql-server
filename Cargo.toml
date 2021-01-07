@@ -13,7 +13,7 @@ actix-web = "3"
 async-std = "1.5.0"
 chrono = "0.4"
 dataloader = "0.12.0"
-sqlx = { version = "0.3.5", features = ["mysql", "chrono"] }
+sqlx = { version = "0.3.5", features = ["postgres", "chrono"] }
 async-trait = "0.1.30"
 dotenv = "0.15.0"
 futures = "0.3.8"
