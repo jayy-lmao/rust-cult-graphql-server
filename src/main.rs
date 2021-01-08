@@ -40,7 +40,7 @@ async fn main() -> async_graphql::Result<()> {
         .finish();
 
     let listen_addr = env::var("LISTEN_ADDR").unwrap_or_else(|_| "0.0.0.0:8000".to_owned());
-    println!("Playground: http://{}", listen_addr);
+    println!("Playground: http://localhost:8000");
 
     HttpServer::new(move || {
         App::new()
