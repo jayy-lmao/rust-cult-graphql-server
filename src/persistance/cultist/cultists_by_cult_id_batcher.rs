@@ -27,8 +27,6 @@ impl BatchFn<i32, CultistsVecByCultIdBatcherLoadHashMapValue> for CultistsByCult
                 first_name,
                 last_name,
                 date_created,
-                date_updated,
-                date_deleted,
                 email,
                 mobile_phone,
                 cultist_id as id,

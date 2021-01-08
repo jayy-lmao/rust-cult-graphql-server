@@ -23,8 +23,6 @@ impl BatchFn<i32, CultistByIdBatcherLoadHashMapValue> for CultistByIdBatcher {
         let stmt = format!(
             r#"SELECT id,
                 date_created,
-                date_deleted,
-                date_updated,
                 email,
                 first_name, 
                 last_name,
