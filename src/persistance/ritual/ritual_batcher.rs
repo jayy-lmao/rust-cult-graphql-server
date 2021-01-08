@@ -3,7 +3,7 @@ use dataloader::BatchFn;
 use sqlx::postgres::{PgPool, PgQueryAs};
 use std::{collections::HashMap, result};
 
-use super::ritual_model::DBRitual;
+use super::ritual_entity::RitualEntity;
 use crate::persistance::shared::BatchFnLoadError;
 
 pub struct RitualBatcher(PgPool);
@@ -13,7 +13,7 @@ impl RitualBatcher {
         Self(postgres_pool)
     }
 }
-pub type RitualBatcherLoadHashMapValue = result::Result<DBRitual, BatchFnLoadError>;
+pub type RitualBatcherLoadHashMapValue = result::Result<RitualEntity, BatchFnLoadError>;
 #[async_trait]
 impl BatchFn<i32, RitualBatcherLoadHashMapValue> for RitualBatcher {
     async fn load(&self, keys: &[i32]) -> HashMap<i32, RitualBatcherLoadHashMapValue> {
@@ -29,7 +29,7 @@ impl BatchFn<i32, RitualBatcherLoadHashMapValue> for RitualBatcher {
                 .join(",")
         );
 
-        let rituals: result::Result<Vec<DBRitual>, sqlx::Error> = keys
+        let rituals: result::Result<Vec<RitualEntity>, sqlx::Error> = keys
             .iter()
             .fold(sqlx::query_as(&stmt), |q, key| q.bind(key))
             .fetch_all(&self.0)

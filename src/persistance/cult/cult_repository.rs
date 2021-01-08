@@ -7,6 +7,7 @@ use super::{
     cult_batcher::{CultBatcher, CultBatcherLoadHashMapValue},
     cult_mapper::map_db_cultist_to_cult,
 };
+
 use crate::{
     application::ports::outgoing::LoadCultsPort, domain::Cult,
     persistance::shared::BatchFnLoadError,

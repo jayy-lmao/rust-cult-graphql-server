@@ -3,7 +3,7 @@ use dataloader::BatchFn;
 use sqlx::postgres::{PgPool, PgQueryAs};
 use std::{collections::HashMap, result};
 
-use super::cultist_model::DBCultist;
+use super::cultist_entity::CultistEntity;
 use crate::persistance::shared::BatchFnLoadError;
 
 pub struct CultistsByCultIdBatcher(PgPool);
@@ -14,7 +14,7 @@ impl CultistsByCultIdBatcher {
     }
 }
 pub type CultistsVecByCultIdBatcherLoadHashMapValue =
-    result::Result<Vec<DBCultist>, BatchFnLoadError>;
+    result::Result<Vec<CultistEntity>, BatchFnLoadError>;
 
 #[async_trait]
 impl BatchFn<i32, CultistsVecByCultIdBatcherLoadHashMapValue> for CultistsByCultIdBatcher {
@@ -41,7 +41,7 @@ impl BatchFn<i32, CultistsVecByCultIdBatcherLoadHashMapValue> for CultistsByCult
                 .join(",")
         );
 
-        let cultists: result::Result<Vec<DBCultist>, sqlx::Error> = keys
+        let cultists: result::Result<Vec<CultistEntity>, sqlx::Error> = keys
             .iter()
             .fold(sqlx::query_as(&stmt), |q, key| q.bind(key))
             .fetch_all(&self.0)

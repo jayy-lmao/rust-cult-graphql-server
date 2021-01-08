@@ -1,7 +1,7 @@
-use super::cultist_model::DBCultist;
+use super::cultist_entity::CultistEntity;
 use crate::domain::{ContactInformation, Cultist};
 
-pub fn map_db_cultist_to_cultist(db_cultist: DBCultist) -> Cultist {
+pub fn map_db_cultist_to_cultist(db_cultist: CultistEntity) -> Cultist {
     Cultist {
         id: format!("C{}", db_cultist.id),
         date_created: db_cultist.date_created.to_string(),

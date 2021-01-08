@@ -1,7 +1,7 @@
-use super::cult_model::DBCult;
+use super::cult_entity::CultEntity;
 use crate::domain::{Cult, CultAddress, CultContactDetails, Profile};
 
-pub fn map_db_cultist_to_cult(db_cult: DBCult) -> Cult {
+pub fn map_db_cultist_to_cult(db_cult: CultEntity) -> Cult {
     Cult {
         id: db_cult.id,
         name: db_cult.name,

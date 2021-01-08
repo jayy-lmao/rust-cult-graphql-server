@@ -1,7 +1,7 @@
 use async_graphql::SimpleObject;
 
 #[derive(sqlx::FromRow, Clone, SimpleObject)]
-pub struct DBCult {
+pub struct CultEntity {
     pub id: i32,
     pub name: String,
     pub state: Option<String>,
