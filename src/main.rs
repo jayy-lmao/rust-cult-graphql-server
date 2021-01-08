@@ -39,8 +39,11 @@ async fn main() -> async_graphql::Result<()> {
         .extension(ApolloTracing)
         .finish();
 
-    let listen_addr = env::var("LISTEN_ADDR").unwrap_or_else(|_| "0.0.0.0:8000".to_owned());
-    println!("Playground: http://localhost:8000");
+    let port = env::var("PORT").unwrap_or_else(|_| "8000".to_owned());
+    let address = env::var("ADDRESS").unwrap_or_else(|_| "localhost".to_owned());
+
+    let listen_addr = format!("{}:{}", address, port);
+    println!("Playground: {}", listen_addr);
 
     HttpServer::new(move || {
         App::new()

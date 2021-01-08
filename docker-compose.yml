@@ -16,6 +16,8 @@ services:
       - db
     environment:
       DATABASE_URL: "postgres://jayylmao:yeetus@db:5432"
+      PORT: 8000
+      ADDRESS: 0.0.0.0
       RUST_BACKTRACE: 1
   db:
     image: postgres:12
