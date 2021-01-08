@@ -14,4 +14,5 @@ Lint: `cargo fmt --all`
 
 ### With Docker Compose
 
-`docker-compose up`
+`docker-compose up --build`
+
