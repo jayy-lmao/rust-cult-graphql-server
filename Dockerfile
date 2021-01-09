@@ -1,10 +1,12 @@
-FROM ekidd/rust-musl-builder AS build
+FROM ekidd/rust-musl-builder:1.49.0 AS build
 WORKDIR /usr/src/
 USER root
 
 # Add compilation target for later scratch container
 ENV RUST_TARGETS="x86_64-unknown-linux-musl"
-# install rustup/cargo
+
+# Install rustup/cargo
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
 ENV PATH /root/.cargo/bin:$PATH
 RUN rustup target install x86_64-unknown-linux-musl
@@ -28,7 +30,8 @@ COPY ./src ./src
 # Only code changes should need to compile
 RUN cargo build --target x86_64-unknown-linux-musl --release
 
-RUN ls /usr/src/cultist-gql-server/target/
+# Never leave on Root
+USER 1000 
 
 # This creates a TINY container with the executable! Like 4-5mb srsly
 FROM scratch

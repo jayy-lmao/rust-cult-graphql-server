@@ -1,0 +1,34 @@
+# See https://github.com/satackey/action-docker-layer-caching
+
+name: Docker-Compose
+
+on: 
+  pull_request:
+    branches:
+      - master
+  push: 
+    branches: 
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    # Pull the latest image to build, and avoid caching pull-only images.
+    # (docker pull is faster than caching in most cases.)
+    - run: docker-compose pull
+
+    # In this step, this action saves a list of existing images,
+    # the cache is created without them in the post run.
+    # It also restores the cache if it exists.
+    - uses: satackey/action-docker-layer-caching@v0.0.11
+      # Ignore the failure of a step and avoid terminating the job.
+      continue-on-error: true
+
+    - run: docker-compose up --build
+
+    # Finally, "Post Run satackey/action-docker-layer-caching@v0.0.11",
+    # which is the process of saving the cache, will be executed.
