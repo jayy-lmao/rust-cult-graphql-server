@@ -993,24 +993,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "cultist-gql-server"
-version = "0.1.0"
-dependencies = [
- "actix-web",
- "async-graphql",
- "async-graphql-actix-web",
- "async-std",
- "async-trait",
- "chrono",
- "dataloader",
- "dotenv",
- "env_logger",
- "futures",
- "log",
- "sqlx",
-]
-
-[[package]]
 name = "darling"
 version = "0.10.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2211,6 +2193,24 @@ checksum = "52e44394d2086d010551b14b53b1f24e31647570cd1deb0379e2c21b329aba00"
 dependencies = [
  "hostname",
  "quick-error",
+]
+
+[[package]]
+name = "rust-graphql"
+version = "0.1.0"
+dependencies = [
+ "actix-web",
+ "async-graphql",
+ "async-graphql-actix-web",
+ "async-std",
+ "async-trait",
+ "chrono",
+ "dataloader",
+ "dotenv",
+ "env_logger",
+ "futures",
+ "log",
+ "sqlx",
 ]
 
 [[package]]
