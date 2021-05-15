@@ -46,6 +46,7 @@ async fn main() -> async_graphql::Result<()> {
         App::new()
             .data(schema.clone())
             .service(web::resource("/graphql").guard(guard::Post()).to(index))
+            .service(web::resource("/graphql").guard(guard::Get()).to(index_playground))
             .service(web::resource("/").guard(guard::Get()).to(index_playground))
     })
     .bind(listen_addr)?

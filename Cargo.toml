@@ -1,5 +1,5 @@
 [package]
-name = "cultist-gql-server"
+name = "rust-graphql"
 version = "0.1.0"
 authors = ["James Holman <jameswarringtonholman@gmail.com>"]
 edition = "2018"
